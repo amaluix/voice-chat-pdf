@@ -44,3 +44,5 @@ next-env.d.ts
 
 # llama index
 cache
+
+.env
