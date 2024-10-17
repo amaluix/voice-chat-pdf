@@ -29,7 +29,7 @@
     "react-feather": "^2.0.10",
     "react-hot-toast": "^2.4.1",
     "react-leaflet": "^4.2.1",
-    "react-pdf": "^9.1.1",
+    "react-pdf": "^8.0.2",
     "sass": "^1.78.0",
     "save": "^2.9.0",
     "tailwind-merge": "^2.5.3",
