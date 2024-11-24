@@ -51,6 +51,7 @@ export default async function handler(
 
       return res.status(200).json({ data, message: 'Documents Linked Successfully' });
     } catch (e) {
+      console.error("Error in linking document to user is", e);
       res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
   } else {

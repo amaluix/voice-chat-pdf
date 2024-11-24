@@ -22,7 +22,6 @@ import { WavRenderer } from '../utils/wav_renderer';
 import { X, Edit, Zap, ArrowUp, ArrowDown } from 'react-feather';
 import { Button } from '../components/button/Button';
 import { Toggle } from '../components/toggle/Toggle';
-import { Map } from '../components/Map';
 
 /**
  * Type for result from get_weather() function call
@@ -123,12 +122,12 @@ export function ConsolePage() {
   const [isConnected, setIsConnected] = useState(false);
   const [canPushToTalk, setCanPushToTalk] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
-  const [memoryKv, setMemoryKv] = useState<{ [key: string]: any }>({});
-  const [coords, setCoords] = useState<Coordinates | null>({
+  const [, setMemoryKv] = useState<{ [key: string]: any }>({});
+  const [, setCoords] = useState<Coordinates | null>({
     lat: 37.775593,
     lng: -122.418137,
   });
-  const [marker, setMarker] = useState<Coordinates | null>(null);
+  const [, setMarker] = useState<Coordinates | null>(null);
 
   /**
    * Utility for formatting the timing of logs
@@ -593,7 +592,7 @@ export function ConsolePage() {
             <div className="content-block-title">events</div>
             <div className="content-block-body" ref={eventsScrollRef}>
               {!realtimeEvents.length && `awaiting connection...`}
-              {realtimeEvents.map((realtimeEvent, i) => {
+              {realtimeEvents.map((realtimeEvent) => {
                 const count = realtimeEvent.count;
                 const event = { ...realtimeEvent.event };
                 if (event.type === 'input_audio_buffer.append') {
@@ -659,7 +658,7 @@ export function ConsolePage() {
             <div className="content-block-title">conversation</div>
             <div className="content-block-body" data-conversation-content>
               {!items.length && `awaiting connection...`}
-              {items.map((conversationItem, i) => {
+              {items.map((conversationItem) => {
                 return (
                   <div className="conversation-item" key={conversationItem.id}>
                     <div className={`speaker ${conversationItem.role || ''}`}>

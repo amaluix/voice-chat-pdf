@@ -2,8 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
 import { getCookie } from 'cookies-next';
 import appConfig from '@/config/app-config';
-import { chunkDocuments, getDocuments } from '@/lib/engine/loader';
-import { initializeCollection, storeDocumentsInQdrant } from '@/lib/engine/qdrant';
 
 const { tableName } = appConfig.supabase
 

@@ -14,8 +14,8 @@ export class WavStreamPlayer {
   context: any;
   stream: any;
   analyser: any;
-  trackSampleOffsets: {};
-  interruptedTrackIds: {};
+  trackSampleOffsets: Record<string, any>;
+  interruptedTrackIds: Record<string, any>;
   /**
    * Connects the audio context and enables output to speakers
    * @returns {Promise<true>}

@@ -52,7 +52,8 @@ export default async function handler(
 
       return res.status(200).json({ data, message: 'Documents Linked Successfully' });
     } catch (e) {
-      res.status(401).json({ success: false, message: 'Invalid credentials' });
+      console.error("error in linking docs", e)
+      res.status(401).json({ success: false, message: 'Something went wrong while linking document to user' });
     }
   } else {
     res.setHeader('Allow', ['POST']);

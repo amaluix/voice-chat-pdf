@@ -49,7 +49,7 @@ export class WavRecorder {
   node: any;
   recording: boolean;
   _lastEventId: number;
-  eventReceipts: {};
+  eventReceipts: Record<string, any>;
   eventTimeout: number;
   _chunkProcessor: () => void;
   _chunkProcessorBuffer: {

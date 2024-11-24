@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import { CalendarIcon, MailIcon } from "lucide-react";
 import { LogOut, Upload } from "react-feather";
 
 import { cn } from "@/lib/utils";

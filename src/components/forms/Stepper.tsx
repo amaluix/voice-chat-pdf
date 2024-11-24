@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { AnimatePresence, motion, steps } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { CheckCircle, Circle } from 'lucide-react'
 import ShimmerButton from '../ui/shimmer-button'
 import { cn } from '@/lib/utils'

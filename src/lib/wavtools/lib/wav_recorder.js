@@ -252,6 +252,7 @@ export class WavRecorder {
         const tracks = stream.getTracks();
         tracks.forEach((track) => track.stop());
       } catch (e) {
+        console.error('error while granting access to mic', e)
         window.alert('You must grant microphone access to use this feature.');
       }
     }
@@ -317,7 +318,8 @@ export class WavRecorder {
         config.audio = { deviceId: { exact: deviceId } };
       }
       this.stream = await navigator.mediaDevices.getUserMedia(config);
-    } catch (err) {
+    } catch (e) {
+      console.error('error while starting media', e)
       throw new Error('Could not start media stream');
     }
 

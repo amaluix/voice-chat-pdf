@@ -5,7 +5,7 @@ import { DotPattern } from '@/components/ui/dot-pattern';
 import ShineBorder from '@/components/ui/shine-border';
 import { fetchDocuments, linkDocuments, unlinkDocuments } from '@/lib/api/utils';
 import { cn, uploadFile } from '@/lib/utils';
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast, { Toaster } from 'react-hot-toast';
 import { Document, Page, pdfjs } from 'react-pdf';
@@ -20,7 +20,6 @@ import { IconTrash } from '@tabler/icons-react';
 import appConfig from '@/config/app-config';
 import Stepper from '@/components/forms/Stepper';
 import { GenerateEmbeddingsForm } from '@/components/forms/GenerateEmbeddings';
-import { Search } from 'lucide-react';
 import { SearchConfigurationForm } from '@/components/forms/SearchConfiguration';
 
 // Configure pdfjs worker
@@ -63,6 +62,7 @@ export default function PdfUploader() {
       const docs = await fetchDocuments()
       setDocuments(docs as any);
     } catch (e) {
+      console.error("Error while fetching docs is", e)
       toast.error("Something went wrong while fetching documents, please refresh the page")
     }
 
@@ -94,6 +94,7 @@ export default function PdfUploader() {
       fetchAndSetDocuments()
       setPdfFile(null)
     } catch (error) {
+      console.log('error while uploading', error)
       toast.error('Upload failed. Please try again.');
     } finally {
       setUploading(false);

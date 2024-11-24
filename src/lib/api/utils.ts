@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 
-export const callApi = async <Output>({
+export const callApi = async ({
   method,
   url,
   body,
@@ -50,7 +50,7 @@ export const loginWithEmailPassword = ({
       email,
       password,
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Hooray!! Logged in successfully');
     },
     onError: (error) => {
@@ -73,7 +73,7 @@ export const signUpWithEmailPassword = ({
       email,
       password,
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Hooray!! Signed up successfully');
     },
     onError: (error) => {
@@ -86,7 +86,7 @@ export const signOut = () => {
   return callApi({
     method: 'DELETE',
     url: '/api/logout',
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Logged out successfully');
     },
     onError: (error) => {
@@ -102,7 +102,7 @@ export const linkDocuments = (docUrl: string) => {
     body: {
       docUrl,
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Documents linked successfully');
     },
     onError: (error) => {
@@ -149,7 +149,7 @@ export const generateEmbeddings = (payload: Record<string, any>) => {
     method: 'POST',
     url: '/api/generate-embeddings',
     body: payload,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Embeddings Generated');
     },
     onError: (error) => {
@@ -163,7 +163,7 @@ export const saveSearchConfigs = (payload: Record<string, any>) => {
     method: 'POST',
     url: '/api/save-search-configs',
     body: payload,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Settings Saved Successfully');
     },
     onError: (error) => {

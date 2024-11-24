@@ -46,7 +46,7 @@ export default async function handler(
       embeddingModel: embeddingInfo?.name,
       openAIApiKey: apiKey
     })
-    for (let doc in chunkedDocuments) {
+    for (const doc in chunkedDocuments) {
       await storeDocumentsInQdrant({
         documents: chunkedDocuments[doc].chunks,
         store

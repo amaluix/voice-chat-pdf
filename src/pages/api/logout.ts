@@ -11,6 +11,7 @@ export default async function handler(
       deleteCookie('user_id', { req, res });
       return res.status(200).json({ message: 'Logged Out successfully' });
     } catch (e) {
+      console.error("Error in logout is", e);
       res.status(401).json({ success: false, message: 'Invalid session' });
     }
   } else {
