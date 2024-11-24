@@ -1,11 +1,11 @@
-import { NavbarComponent } from './components/navbar';
-import { ConsolePage } from './pages/ConsolePage';
+import { Toaster } from 'react-hot-toast';
+import { Intro } from './components/animated/Intro';
 
 function App() {
   return (
     <div data-component="App">
-      <NavbarComponent />
-      <ConsolePage />
+      <Toaster position="top-right" reverseOrder={false} />
+      <Intro />
     </div>
   );
 }

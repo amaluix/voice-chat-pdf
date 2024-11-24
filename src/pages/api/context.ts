@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Settings } from 'llamaindex';
 import { getCookie } from 'cookies-next';
 import { supabseAuthClient } from '@/lib/supabase/auth';
-import { qdrantClient } from '@/lib/engine/qdrant';
 import { cohereClient } from '@/lib/engine/cohere';
 import appConfig from '@/config/app-config';
+import { generateEmbeddingforQuery } from '@/lib/engine/loader';
+import { searchQueryInQdrant } from '@/lib/engine/qdrant';
 
 const { tableName } = appConfig.supabase
 
@@ -17,7 +17,7 @@ export default async function handler(
   res: NextApiResponse<ResponseData>,
 ) {
   try {
-    const { query } = req.query;
+    const { query, openAIApiKey } = req.query;
     let finalChunkText = '';
     const userId = getCookie('user_id', { req, res });
     if (!userId) {
@@ -38,31 +38,37 @@ export default async function handler(
       .eq('user_id', userId)
       .single();
 
-    const { topK, useReranking, rerankingResults } = dt.data?.configs || {
+    const { topK, useReranking, rerankingResults, embeddingInfo } = dt.data?.configs || {
       topK: 2,
       useReranking: true,
       rerankingResults: 1,
+      embeddingInfo: {}
     };
-    const queryEmbedding = await Settings.embedModel.getQueryEmbedding({
-      text: query,
-      type: 'text',
-    });
+    const queryEmbedding = await generateEmbeddingforQuery({
+      query,
+      apiKey: openAIApiKey as string,
+      model: embeddingInfo?.name
+    })
 
     if (!queryEmbedding) {
       return res.status(400).json({
         message: 'Failed to get query embedding',
       });
     }
-    const qdrantResponse = await qdrantClient.query(
-      `${userId}_collection`,
+    const qdrantResponse = await searchQueryInQdrant(
       {
-        query: queryEmbedding,
-        limit: topK,
-        with_payload: true,
+        userId,
+        query,
+        openAIApiKey: openAIApiKey as string,
+        topK,
+        embeddingModel: embeddingInfo.name
+
       }
     );
 
-    const documentChunks = qdrantResponse.points.map((chunk) => JSON.parse(chunk.payload?._node_content as string).text);
+    const documentChunks = qdrantResponse.map((doc) => {
+      return doc.pageContent
+    })
 
     if (useReranking) {
       const rerankedDocumentResults = await cohereClient.rerank({

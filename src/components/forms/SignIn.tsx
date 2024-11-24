@@ -7,11 +7,12 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import ShimmerButton from "../ui/shimmer-button"
+import { LabelInputContainer } from "@/components/labels/LabelContainer"
+import { Label } from "@/components/ui/label"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -52,11 +53,13 @@ export function SignInForm({ handleSignIn }: SignInFormProps) {
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className="text-lg italic">Username</FormLabel>
-                        <FormControl>
-                            <Input placeholder="john.doe@gmail.com" {...field} />
-                        </FormControl>
-                        <FormMessage className="text-md" />
+                        <LabelInputContainer>
+                            <Label className="text-md font-thin">Username</Label>
+                            <FormControl>
+                                <Input placeholder="john.doe@gmail.com" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-md" />
+                        </LabelInputContainer>
                     </FormItem>
                 )}
             />
@@ -65,11 +68,13 @@ export function SignInForm({ handleSignIn }: SignInFormProps) {
                 name="password"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className="text-lg italic">Password</FormLabel>
-                        <FormControl>
-                            <Input type="password" placeholder="secret-pattern" {...field} />
-                        </FormControl>
-                        <FormMessage className="text-md" />
+                        <LabelInputContainer>
+                            <Label className="text-md font-thin">Password</Label>
+                            <FormControl>
+                                <Input type="password" placeholder="secret-pattern" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-md" />
+                        </LabelInputContainer>
                     </FormItem>
                 )}
             />

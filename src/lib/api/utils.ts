@@ -26,7 +26,6 @@ export const callApi = async <Output>({
     });
     if (response.ok) {
       const data = await response.json();
-      console.info('data is', data);
       onSuccess?.(data);
     } else {
       const error = await response.json();
@@ -112,6 +111,22 @@ export const linkDocuments = (docUrl: string) => {
   });
 };
 
+export const unlinkDocuments = (docUrl: string) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/unlink-document-to-user',
+    body: {
+      docUrl,
+    },
+    onSuccess: () => {
+      toast.success('Documents unlinked successfully');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
+};
+
 export const fetchDocuments = () => {
   return new Promise((resolve, reject) =>
     callApi({
@@ -127,4 +142,32 @@ export const fetchDocuments = () => {
       },
     }),
   );
+};
+
+export const generateEmbeddings = (payload: Record<string, any>) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/generate-embeddings',
+    body: payload,
+    onSuccess: (data) => {
+      toast.success('Embeddings Generated');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
+};
+
+export const saveSearchConfigs = (payload: Record<string, any>) => {
+  return callApi({
+    method: 'POST',
+    url: '/api/save-search-configs',
+    body: payload,
+    onSuccess: (data) => {
+      toast.success('Settings Saved Successfully');
+    },
+    onError: (error) => {
+      toast.error(error?.message || 'Something went wrong');
+    },
+  });
 };
