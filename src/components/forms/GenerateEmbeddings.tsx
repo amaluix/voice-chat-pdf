@@ -60,6 +60,7 @@ export function GenerateEmbeddingsForm() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         generateEmbeddings({
             ...values,
+            apiKey: values.embeddingApiKey,
             embeddingInfo: {
                 ...modelConfigs[values.embeddingModel]
             }
