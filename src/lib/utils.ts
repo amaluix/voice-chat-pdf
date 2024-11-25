@@ -54,3 +54,15 @@ export async function deleteFile(id: string) {
     throw error;
   }
 }
+
+export async function getBucketData() {
+  const { data, error } = await supabseAuthClient.supabase
+    .storage
+    .getBucket(appConfig.supabase.bucketName)
+  if (error) {
+    console.error('error is', error)
+    toast.error('Something went wrong while fetching bucket info');
+    throw error;
+  }
+  return data
+}
