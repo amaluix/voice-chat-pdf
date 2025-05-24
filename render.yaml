@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: voice-chat-web
+    env: node
+    repo: https://github.com/amaluix/voice-chat-pdf
+    branch: main
+    plan: starter
+    buildCommand: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm run build
+    startCommand: pnpm run start -- -p $PORT
+    envVars:
+      - fromGroup: voice-chat-env
+
+  - type: web
+    name: voice-chat-relay
+    env: node
+    repo: https://github.com/<your-user>/voice-chat-pdf
+    branch: main
+    rootDir: relay-server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - fromGroup: voice-chat-env
